@@ -1,4 +1,4 @@
-package ca.cary.pokemons;
+package ca.cary.pokemons.activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import ca.cary.pokemons.R;
+import ca.cary.pokemons.services.SniperService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -24,6 +27,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SniperService.startSniperService(this);
+    }
 
     /**
      * Manipulates the map once available.
@@ -43,4 +52,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
 }
