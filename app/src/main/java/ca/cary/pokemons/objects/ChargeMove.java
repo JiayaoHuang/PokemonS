@@ -10,6 +10,13 @@ public class ChargeMove {
     private int damage;
     private int charge;
 
+    public ChargeMove(String name) {
+        this.name = name;
+        this.type = null;
+        this.damage = 0;
+        this.charge = 0;
+    }
+
     public ChargeMove(String name, String type, int damage, int charge) {
         this.name = name;
         this.type = type;

@@ -7,9 +7,16 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.util.List;
+
+import ca.cary.pokemons.dtos.SniperDto;
 import ca.cary.pokemons.fragments.SettingsFragment;
+import ca.cary.pokemons.helpers.CacheHelper;
+import ca.cary.pokemons.helpers.JsonParserHelper;
 import ca.cary.pokemons.helpers.ServiceHelper;
 import ca.cary.pokemons.helpers.SniperAlarmHelper;
 
@@ -41,9 +48,22 @@ public class SniperService extends IntentService {
         }
 
         if (delayTime != null) {
+            if (!ServiceHelper.checkNetworkConnection(this)) {
+                return;
+            }
+
             JSONObject sniperJSON = ServiceHelper.httpGetJSONRequest(POKEMON_SNIPER_URL);
             if (sniperJSON != null) {
                 Log.d(TAG, sniperJSON.toString());
+
+                List<SniperDto> sniperDtos = null;
+                try {
+                    sniperDtos = JsonParserHelper.sniperJsonToSniperDtos(sniperJSON);
+                } catch (JSONException | NumberFormatException | ParseException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+                new CacheHelper(this).saveSnipers(sniperDtos);
             } else {
                 Log.e(TAG, "(sniperJSON != null)");
             }

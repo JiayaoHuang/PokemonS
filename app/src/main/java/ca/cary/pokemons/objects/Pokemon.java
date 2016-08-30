@@ -14,6 +14,7 @@ public class Pokemon {
     private int powerUpStardust;
     private FastMove fastMove;
     private ChargeMove chargeMove;
+    private String rarity;
     private int level;
     private int attack;
     private int attackBonus;
@@ -33,6 +34,7 @@ public class Pokemon {
         this.powerUpStardust = 0;
         this.fastMove = null;
         this.chargeMove = null;
+        this.rarity = null;
         this.level = 0;
         this.attack = 0;
         this.attackBonus = 0;
@@ -41,6 +43,48 @@ public class Pokemon {
         this.stamina = 0;
         this.staminaBonus = 0;
         this.perfection = 0;
+    }
+
+    public Pokemon(String name, float perfection) {
+        this.name = name;
+        this.combatPower = 0;
+        this.healthPoints = 0;
+        this.type = null;
+        this.weight = 0;
+        this.height = 0;
+        this.powerUpStardust = 0;
+        this.fastMove = null;
+        this.chargeMove = null;
+        this.rarity = null;
+        this.level = 0;
+        this.attack = 0;
+        this.attackBonus = 0;
+        this.defense = 0;
+        this.defenseBonus = 0;
+        this.stamina = 0;
+        this.staminaBonus = 0;
+        this.perfection = perfection;
+    }
+
+    public Pokemon(String name, FastMove fastMove, ChargeMove chargeMove, float perfection) {
+        this.name = name;
+        this.combatPower = 0;
+        this.healthPoints = 0;
+        this.type = null;
+        this.weight = 0;
+        this.height = 0;
+        this.powerUpStardust = 0;
+        this.fastMove = fastMove;
+        this.chargeMove = chargeMove;
+        this.rarity = null;
+        this.level = 0;
+        this.attack = 0;
+        this.attackBonus = 0;
+        this.defense = 0;
+        this.defenseBonus = 0;
+        this.stamina = 0;
+        this.staminaBonus = 0;
+        this.perfection = perfection;
     }
 
     public String getName() {
@@ -113,6 +157,14 @@ public class Pokemon {
 
     public void setChargeMove(ChargeMove chargeMove) {
         this.chargeMove = chargeMove;
+    }
+
+    public String getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(String rarity) {
+        this.rarity = rarity;
     }
 
     public int getLevel() {

@@ -1,6 +1,7 @@
 package ca.cary.pokemons.helpers;
 
 import android.app.Activity;
+import android.app.IntentService;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,6 +25,17 @@ import java.net.URL;
 public class ServiceHelper {
 
     public static final String TAG = ServiceHelper.class.getName();
+
+    public static boolean checkNetworkConnection(IntentService service) {
+        if (service == null) {
+            Log.e(TAG, "(service == null)");
+            return false;
+        }
+
+        ConnectivityManager cm = (ConnectivityManager) service.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
 
     public static boolean checkNetworkConnection(Activity activity) {
         if (activity == null) {

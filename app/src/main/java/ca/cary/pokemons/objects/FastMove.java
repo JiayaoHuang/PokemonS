@@ -10,6 +10,13 @@ public class FastMove {
     private int damage;
     private float speed;
 
+    public FastMove(String name) {
+        this.name = name;
+        this.type = null;
+        this.damage = 0;
+        this.speed = 0;
+    }
+
     public FastMove(String name, String type, int damage, float speed) {
         this.name = name;
         this.type = type;
