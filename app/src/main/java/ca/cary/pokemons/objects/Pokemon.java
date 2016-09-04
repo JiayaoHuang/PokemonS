@@ -45,7 +45,7 @@ public class Pokemon {
         this.perfection = 0;
     }
 
-    public Pokemon(String name, float perfection) {
+    public Pokemon(String name, String rarity, float perfection) {
         this.name = name;
         this.combatPower = 0;
         this.healthPoints = 0;
@@ -55,7 +55,7 @@ public class Pokemon {
         this.powerUpStardust = 0;
         this.fastMove = null;
         this.chargeMove = null;
-        this.rarity = null;
+        this.rarity = rarity;
         this.level = 0;
         this.attack = 0;
         this.attackBonus = 0;

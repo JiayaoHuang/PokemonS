@@ -3,4 +3,6 @@
     <string name="title_activity_maps">PokemonS</string>
 
     <string name="no_connection">No network connection</string>
+    <string name="i_am_here">I am here!</string>
+    <string name="disappear_date">Disappear Date:</string>
 </resources>

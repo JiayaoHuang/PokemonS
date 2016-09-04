@@ -15,7 +15,6 @@ public class SniperDto {
     private double longitude;
     private Date disappearDate;
     private String icon;
-    private String rarity;
 
     public int getSniperId() {
         return sniperId;
@@ -63,14 +62,6 @@ public class SniperDto {
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public String getRarity() {
-        return rarity;
-    }
-
-    public void setRarity(String rarity) {
-        this.rarity = rarity;
     }
 
 }

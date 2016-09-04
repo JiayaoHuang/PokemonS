@@ -19,6 +19,7 @@ import ca.cary.pokemons.helpers.CacheHelper;
 import ca.cary.pokemons.helpers.JsonParserHelper;
 import ca.cary.pokemons.helpers.ServiceHelper;
 import ca.cary.pokemons.helpers.SniperAlarmHelper;
+import ca.cary.pokemons.helpers.SyncHelper;
 
 /**
  * Created by jiayaohuang on 2016-08-19.
@@ -29,8 +30,6 @@ public class SniperService extends IntentService {
 
     public static final String POKEMON_SNIPER_URL = "http://www.pokesnipers.com/api/v1/pokemon.json";
 
-    private static boolean mBlock = false;
-
     private static Intent service;
 
     public SniperService() {
@@ -39,12 +38,14 @@ public class SniperService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        SyncHelper.getInstance().setProcessing(TAG, true);
+
         String delayValue = intent.getStringExtra(SettingsFragment.SNIPER_SERVICE_CALL_DELAY_TIME);
         Long delayTime = null;
         try {
             delayTime = Long.valueOf(delayValue);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.getMessage() + " : Long.valueOf(delayValue)");
+            Log.e(TAG, "NumberFormatException! " + e.getMessage() + " : Long.valueOf(delayValue)");
         }
 
         if (delayTime != null) {
@@ -59,8 +60,12 @@ public class SniperService extends IntentService {
                 List<SniperDto> sniperDtos = null;
                 try {
                     sniperDtos = JsonParserHelper.sniperJsonToSniperDtos(sniperJSON);
-                } catch (JSONException | NumberFormatException | ParseException e) {
-                    Log.e(TAG, e.getMessage());
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSONException! " + e.getMessage());
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, "NumberFormatException! " + e.getMessage());
+                } catch (ParseException e) {
+                    Log.e(TAG, "ParseException! " + e.getMessage());
                 }
 
                 new CacheHelper(this).saveSnipers(sniperDtos);
@@ -70,6 +75,8 @@ public class SniperService extends IntentService {
 
             SniperAlarmHelper.getInstance().setAlarm(this, delayTime);
         }
+
+        SyncHelper.getInstance().setProcessing(TAG, false);
     }
 
     public static void startSniperService(Context context) {
@@ -78,7 +85,7 @@ public class SniperService extends IntentService {
         String delayValue = sharedPreferences.getString(SettingsFragment.SNIPER_SERVICE_CALL_DELAY_TIME,
                 SniperAlarmHelper.SNIPER_SERVICE_CALL_DEFAULT_DELAY_TIME);
 
-        if (isOn && !isBlock()) {
+        if (isOn && !SyncHelper.getInstance().isProcessing(TAG)) {
             service = new Intent(context, SniperService.class);
             service.putExtra(SettingsFragment.SNIPER_SERVICE_CALL_DELAY_TIME, delayValue);
             context.startService(service);
@@ -86,20 +93,12 @@ public class SniperService extends IntentService {
     }
 
     public static void stopSniperService(Context context) {
-        if (service != null && isBlock()) {
+        if (service != null && SyncHelper.getInstance().isProcessing(TAG)) {
             context.stopService(service);
-            blockTask(false);
+            SyncHelper.getInstance().setProcessing(TAG, false);
         }
 
         SniperAlarmHelper.getInstance().endAlarm();
-    }
-
-    private static boolean isBlock() {
-        return mBlock;
-    }
-
-    private static void blockTask(boolean block) {
-        mBlock = block;
     }
 
 }

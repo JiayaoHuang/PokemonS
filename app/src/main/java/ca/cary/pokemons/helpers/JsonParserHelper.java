@@ -40,8 +40,9 @@ public class JsonParserHelper {
             sniperDto.setSniperId(jsonObject.getInt("id"));
 
             String name = jsonObject.getString("name");
+            String rarity = jsonObject.getString("rarity");
             int iv = jsonObject.getInt("iv");
-            sniperDto.setPokemon(new Pokemon(name, iv));
+            sniperDto.setPokemon(new Pokemon(name, rarity, iv));
 
             JSONArray attacks = jsonObject.getJSONArray("attacks");
             if (attacks.length() == 2) {
@@ -68,7 +69,6 @@ public class JsonParserHelper {
             sniperDto.setDisappearDate(disappearDate);
 
             sniperDto.setIcon(jsonObject.getString("icon"));
-            sniperDto.setRarity(jsonObject.getString("rarity"));
 
             sniperDtos.add(sniperDto);
         }

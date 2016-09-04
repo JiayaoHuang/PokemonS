@@ -17,6 +17,7 @@ public class SniperContract implements BaseContract {
         public static final String SNIPER_LATITUDE = "latitude";
         public static final String SNIPER_LONGITUDE = "longitude";
         public static final String SNIPER_DATE_DISAPPEAR = "sniper_date_disappear";
+        public static final String SNIPER_POKEMON_ICON = "pokemon_icon";
         public static final String SNIPER_DATE_CREATED = "date_created";
 
         public static final String SQL_INITIATE_ENTRIES =
@@ -27,6 +28,7 @@ public class SniperContract implements BaseContract {
                         SNIPER_LATITUDE + REAL_TYPE + COMMA_SEP +
                         SNIPER_LONGITUDE + REAL_TYPE + COMMA_SEP +
                         SNIPER_DATE_DISAPPEAR + INTEGER_TYPE + COMMA_SEP +
+                        SNIPER_POKEMON_ICON + TEXT_TYPE + COMMA_SEP +
                         SNIPER_DATE_CREATED + INTEGER_TYPE + ")";
 
         public static final String SQL_DELETE_ENTRIES =
@@ -38,6 +40,7 @@ public class SniperContract implements BaseContract {
                 SNIPER_LATITUDE,
                 SNIPER_LONGITUDE,
                 SNIPER_DATE_DISAPPEAR,
+                SNIPER_POKEMON_ICON,
                 SNIPER_DATE_CREATED
         };
 

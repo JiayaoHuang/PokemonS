@@ -84,15 +84,15 @@ public class ServiceHelper {
 
             return null;
         } catch (MalformedURLException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "MalformedURLException! " + e.getMessage());
 
             return null;
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "IOException Error! " + e.getMessage());
 
             return null;
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "JSONException! " + e.getMessage());
 
             return null;
         } finally {
